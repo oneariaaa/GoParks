@@ -1,0 +1,70 @@
+<% layout('layouts/boilerplate')%>
+    <link rel="stylesheet" href="/css/park.css">
+
+    <body>
+        <div class="row">
+            <h3 class="text-center">Edit Park</h3>
+            <div class="col-6 offset-3">
+                <form action="/parks/<%=park._id%>?_method=PUT" method="POST" novalidate class="validated-form"
+                    enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title</label>
+                        <input class="trans form-control" type="text" id="title" name="park[title]"
+                            value="<%=park.title %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="location">Location</label>
+                        <input class="trans form-control" type="text" id="location" name="park[location]"
+                            value="<%=park.location %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="type">Park Type</label>
+                        <select class="trans form-select" id="type" name="park[type]" required>
+                            <option value="<%=park.type %>" selected>
+                                <%=park.type %>
+                            </option>
+                            <option value="National Park">National Park</option>
+                            <option value="National Monument">National Monument</option>
+                            <option value="National Historical Park">National Historical Park</option>
+                            <option value="National Memorial">National Memorial</option>
+                            <option value="National Recreation Area">National Recreation Area</option>
+                            <option value="National Battlefield">National Battlefield</option>
+                            <option value="National Preserve">National Preserve</option>
+                            <option value="Other Designation">Other Designation</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="website">Website</label>
+                        <input class="trans form-control" type="text" id="website" name="park[website]"
+                            value="<%= park.website%>" required>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-file custom-file">
+                            <input type="file" class="trans form-file-input" id="image" name="image" multiple>
+                            <label class="form-file-label" for="image">
+                                <span class="trans form-file-text custom-file-label" style="color:white;">Add more
+                                    image(s)...</span>
+                                <span class="trans form-file-button" style="color:white;">Browse</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <% park.images.forEach(function(img, i) { %>
+                            <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
+                            <div class="form-check-inline">
+                                <input class="trans" type="checkbox" id="image-<%=i%>" name="deleteImages[]"
+                                    value="<%=img.filename%>">
+                            </div>
+                            <label for="image-<%=i%>">Delete</label>
+                            <% })%>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-block bg-dark" style="color:white;">Update Park</button>
+                    </div>
+                </form>
+                <a href="/parks/<%= park._id%>">Back To <%=park.title %></a>
+            </div>
+        </div>
+    </body>
