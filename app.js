@@ -21,11 +21,11 @@ const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes = require('./routes/users');
 const parkRoutes = require('./routes/parks');
 const reviewRoutes = require('./routes/reviews');
-const { func } = require('joi');
+//const { func } = require('joi');
 
 const MongoDBStore = require("connect-mongo")(session);
-//const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
-const dbUrl = 'mongodb://localhost:27017/parks';
+
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/parks';
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -166,5 +166,5 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`Serving on port ${port}`)
+    console.log("Server Has Started!")
 })
